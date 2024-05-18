@@ -20,7 +20,7 @@ sed -i.bak -E "s/(LABEL version=\")[^\"]+(\")/\1${VERSION}\2/" Dockerfile
 
 # Commit and push the LABEL change to git
 git add Dockerfile
-git commit -m "[${VERSION}]"
+git commit -m "${VERSION}"
 git push
 
 # Tag the image with the version and latest
