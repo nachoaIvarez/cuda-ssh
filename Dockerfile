@@ -4,7 +4,7 @@ FROM nvidia/cuda:12.4.1-cudnn-runtime-ubuntu22.04
 # Metadata
 LABEL maintainer="Nacho Alvarez docker@nachoalvarez.dev"
 LABEL description="GPU accelerated container with SSH support"
-LABEL version="1.0.2"
+LABEL version="1.0.3"
 
 # Environment variables
 ENV NVIDIA_DRIVER_CAPABILITIES=all
