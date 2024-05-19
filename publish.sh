@@ -21,7 +21,7 @@ sed -i.bak -E "s/(LABEL version=\")[^\"]+(\")/\1${VERSION}\2/" Dockerfile
 # Commit and push the LABEL change to git
 git add Dockerfile
 git commit -m "${VERSION}"
-git push
+git push origin master
 
 # Tag the image with the version and latest
 docker tag nachoaIvarez/cuda-ssh:${VERSION} ghcr.io/nachoaivarez/cuda-ssh:${VERSION}
