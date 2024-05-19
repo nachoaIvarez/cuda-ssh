@@ -9,7 +9,7 @@ fi
 VERSION=$1
 
 # Build the docker image
-docker build -t nachoaIvarez/cuda-ssh:${VERSION} .
+docker build -t nachoaivarez/cuda-ssh:${VERSION} .
 if [ $? -ne 0 ]; then
   echo "Docker build failed"
   exit 1
@@ -24,8 +24,8 @@ git commit -m "${VERSION}"
 git push origin master
 
 # Tag the image with the version and latest
-docker tag nachoaIvarez/cuda-ssh:${VERSION} ghcr.io/nachoaivarez/cuda-ssh:${VERSION}
-docker tag nachoaIvarez/cuda-ssh:${VERSION} ghcr.io/nachoaivarez/cuda-ssh:latest
+docker tag nachoaivarez/cuda-ssh:${VERSION} ghcr.io/nachoaivarez/cuda-ssh:${VERSION}
+docker tag nachoaivarez/cuda-ssh:${VERSION} ghcr.io/nachoaivarez/cuda-ssh:latest
 
 # Push the tagged images
 docker push ghcr.io/nachoaivarez/cuda-ssh:${VERSION}
