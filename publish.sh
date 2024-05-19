@@ -8,27 +8,19 @@ fi
 
 VERSION=$1
 
-# Build the docker image
-docker build -t nachoaivarez/cuda-ssh:${VERSION} .
+# Update the LABEL version in the Dockerfile
+sed -i.bak -E "s/(LABEL version=\")[^\"]+(\")/\1${VERSION}\2/" Dockerfile
+
+# Build and push the multi-platform docker image
+docker buildx build --platform linux/amd64,linux/arm64 -t ghcr.io/nachoaivarez/cuda-ssh:${VERSION} -t ghcr.io/nachoaivarez/cuda-ssh:latest --push .
 if [ $? -ne 0 ]; then
   echo "Docker build failed"
   exit 1
 fi
 
-# Update the LABEL version in the Dockerfile
-sed -i.bak -E "s/(LABEL version=\")[^\"]+(\")/\1${VERSION}\2/" Dockerfile
-
 # Commit and push the LABEL change to git
 git add Dockerfile
 git commit -m "${VERSION}"
 git push origin master
-
-# Tag the image with the version and latest
-docker tag nachoaivarez/cuda-ssh:${VERSION} ghcr.io/nachoaivarez/cuda-ssh:${VERSION}
-docker tag nachoaivarez/cuda-ssh:${VERSION} ghcr.io/nachoaivarez/cuda-ssh:latest
-
-# Push the tagged images
-docker push ghcr.io/nachoaivarez/cuda-ssh:${VERSION}
-docker push ghcr.io/nachoaivarez/cuda-ssh:latest
 
 echo "Docker image successfully built, tagged, and pushed."
